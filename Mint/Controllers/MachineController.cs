@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Mint.API.ViewModels.MachineViewModels;
 using Mint.Services;
 
@@ -15,10 +16,12 @@ namespace Mint.API.Controllers
     public class MachineController : ControllerBase
     {
         private readonly IMachineServices _machineService;
+        private readonly ILogger _logger;
 
-        public MachineController(IMachineServices machineRepository)
+        public MachineController(IMachineServices machineRepository,ILogger<MachineController> logger)
         {
             _machineService = machineRepository;
+            _logger = logger;
         }
 
         [ProducesResponseType(typeof(List<MachineWithProductionViewModel>), StatusCodes.Status200OK)]
@@ -27,6 +30,7 @@ namespace Mint.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMachines()
         {
+            _logger.Log(LogLevel.Information,"MachineController.GetMachines was called");
             var machines = await _machineService.GetMachinesAsync();
             if (machines == null || !machines.Any())
                 return NoContent();
@@ -48,6 +52,7 @@ namespace Mint.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMachine(int id)
         {
+            _logger.Log(LogLevel.Information,$"MachineController.GetMachine with id : {id} was called");
             var machine =  await _machineService.GetMachineByIdAsync(id);
             if (machine == null)
                 return NotFound();
@@ -68,6 +73,7 @@ namespace Mint.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTotalProduction(int id)
         {
+            _logger.Log(LogLevel.Information, $"MachineController.GetTotalProduction with id : {id} was called");
             try
             {
                 var totalProdution = await _machineService.GetMachineTotalProduction(id);
@@ -75,9 +81,9 @@ namespace Mint.API.Controllers
             }
             catch(Exception ex)
             {
+                _logger.Log(LogLevel.Error,ex.Message);
                 return NotFound();
             }
-            
         }
 
 
@@ -87,6 +93,7 @@ namespace Mint.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteMachine(int id)
         {
+            _logger.Log(LogLevel.Information, $"MachineController.DeleteMachine with id : {id} was called");
             try
             {
                 await _machineService.DeleteMachine(id);
@@ -94,6 +101,7 @@ namespace Mint.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.Log(LogLevel.Error, ex.Message);
                 return NotFound(0);
             }
         }
