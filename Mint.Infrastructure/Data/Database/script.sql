@@ -1,5 +1,10 @@
-﻿USE [Test]
-GO
+﻿IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'MachineMonitoring')
+  BEGIN
+    CREATE DATABASE [MachineMonitoring]
+  END
+    GO
+       USE [MachineMonitoring]
+   GO
 /****** Object:  Table [dbo].[MachineProductions]    Script Date: 04/10/2020 16:06:10 ******/
 SET ANSI_NULLS ON
 GO
@@ -51,7 +56,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects o WHERE o.object_id = object_id(N'[dbo]
 GO
 
 
-USE [Test]
+USE [MachineMonitoring]
 GO
 
 INSERT INTO [dbo].[Machines]
@@ -80,4 +85,5 @@ INSERT INTO [dbo].[MachineProductions]
            (SCOPE_IDENTITY(),CAST(RAND(CHECKSUM(NEWID())) * 10 as INT) + 1)
 
 
-GO
+    GO
+--You need to check if the table exists
