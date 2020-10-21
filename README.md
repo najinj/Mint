@@ -1,7 +1,7 @@
-# This is a 
+# This is a BOBST Technical Test :
 
 
-BOBST Technical Test :
+
 
 This project contains 
 
