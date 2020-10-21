@@ -77,7 +77,9 @@ namespace WebAPI.Controllers
             try
             {
                 var totalProdution = await _machineService.GetMachineTotalProduction(id);
-                return Ok(new TotalProdutionViewModel { TotalProdution = totalProdution });
+                if(totalProdution == null)
+                    return NotFound();
+                return Ok(new TotalProdutionViewModel { TotalProdution = totalProdution.Value });
             }
             catch(Exception ex)
             {
