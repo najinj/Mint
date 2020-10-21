@@ -9,11 +9,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="error" >
-                <td scope = "row"> Error while trying to connect to the server ... </td>
+          <tr *ngIf="error?.status == 0" >
+                <td scope = "row"> Error while trying to connect to the server. </td>
           </tr>
-          <tr *ngIf="!error && machines.length == 0" >
+          <tr *ngIf="!error && !loading && machines.length == 0 || error?.status == 204" >
               <td scope = "row"> No data available </td>
+          </tr>
+          <tr *ngIf="loading" >
+            <td scope = "row">Loading ...</td>
           </tr>  
           <tr *ngFor = "let machine of machines">
             <td><a href="/machine/{{machine.machineId}}">{{machine.machineId}}</a></td>
