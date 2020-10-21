@@ -185,6 +185,25 @@ namespace WebAPITest.Controllers
         }
 
         [Fact]
+        public async Task GetMachineProduction_Should_Responsed_With404_When_ServiceReturns_Null()
+        {
+            //Arrange
+            var machineService = new Mock<IMachineServices>();
+            var logger = new Mock<ILogger<MachineController>>();
+            machineService.Setup(x => x.GetMachineTotalProduction(It.IsAny<int>())).ReturnsAsync(default(int?));
+
+            var machineController = new MachineController(machineService.Object, logger.Object);
+
+            //Act
+            var actionResult = await machineController.GetTotalProduction(1) as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(actionResult);
+            Assert.Equal(StatusCodes.Status404NotFound, actionResult.StatusCode);
+            Assert.IsType<NotFoundResult>(actionResult);
+        }
+
+        [Fact]
         public async Task DeleteMachine_Should_Responsed_WithOk()
         {
             //Arrange
