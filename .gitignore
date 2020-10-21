@@ -342,25 +342,47 @@ healthchecksdb
 
 
 
+# compiled output
+client/dist
+client/tmp
+client/out-tsc
+# Only exists if Bazel was run
+client/bazel-out
+
 # dependencies
 client/node_modules
-client/.pnp
-client/.pnp.js
 
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
 
-# testing
-client/coverage
+# IDEs and editors
+client/.idea
+client/.project
+client/.classpath
+client/.c9/
+client/*.launch
+client/.settings/
+client/*.sublime-workspace
 
-# production
-client/build
+# IDE - VSCode
+client/.vscode/*
+client/!.vscode/settings.json
+client/!.vscode/tasks.json
+client/!.vscode/launch.json
+client/!.vscode/extensions.json
+client/.history/*
 
 # misc
-client/.DS_Store
-client/.env.local
-client/.env.development.local
-client/.env.test.local
-client/.env.production.local
+client/.sass-cache
+client/connect.lock
+client/coverage
+client/libpeerconnection.log
+client/npm-debug.log
+client/yarn-error.log
+client/testem.log
+client/typings
 
-client/npm-debug.log*
-client/yarn-debug.log*
-client/yarn-error.log*
+# System Files
+client/.DS_Store
+client/Thumbs.db
