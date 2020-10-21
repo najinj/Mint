@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Machine } from '../models/machine.model';
 import { MachineService } from '../services/machine.service';
-import { interval } from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -9,36 +10,22 @@ import { interval } from "rxjs";
 })
 export class HomeComponent implements OnInit {
 
-  machines : any[] = [];
-  error : boolean = false;
+  machines : Machine[] = [];
+  error : HttpErrorResponse  = null;
+  loading : boolean = true;
 
   constructor(private machineService : MachineService) { }
 
   ngOnInit(): void {
-    this.machineService.getMachines().subscribe(data=>{
+    this.machineService.getMachines().subscribe((data : Machine[])=>{
       this.machines = data;
-      console.log(data);
-    },(err)=>{
-      this.error = true;
+      this.error = null;
+      this.loading = false;
+    },(err : HttpErrorResponse)=>{
+      this.error = err;
+      this.loading = false;
       console.log(err);
     });
-
-    const myInterval = interval(5000);
-    myInterval.subscribe(
-      (value) => {
-        this.machineService.getMachines().subscribe(data=>{
-          this.machines = data;
-          this.error = false;
-        });
-      },
-      (err) => {
-        this.error = true;
-        console.log('Uh-oh, an error occurred! : ' + err);
-      },
-      () => {
-        console.log('Observable complete!');
-      }
-    );
   }
 
   deleteMachine(machineId : number) : void {
@@ -50,6 +37,4 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-
 }
