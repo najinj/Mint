@@ -12,11 +12,5 @@ namespace Repository.Data
         }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<MachineProduction> MachineProductions { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
     }
 }
