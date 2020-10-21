@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             {
                 Name = m.Name,
                 MachineId = m.MachineId,
-                Production = m.Production.MachineProductionId
+                Production = m.Production.TotalProduction
             }).ToList();
             return Ok(machinesWithProductions);
         }
