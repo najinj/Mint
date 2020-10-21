@@ -9,7 +9,7 @@ namespace Services
     {
         Task<Machine> GetMachineByIdAsync(int id);
         Task<IList<Machine>> GetMachinesAsync();
-        Task<int> GetMachineTotalProduction(int id);
+        Task<int?> GetMachineTotalProduction(int id);
         Task<int> DeleteMachine(int id);
     }
 }

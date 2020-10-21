@@ -30,7 +30,7 @@ namespace Services
             return _machineRepo.GetMachinesAsync();
         }
 
-        public Task<int> GetMachineTotalProduction(int id)
+        public Task<int?> GetMachineTotalProduction(int id)
         {
             return _machineRepo.GetMachineTotalProduction(id);
         }
