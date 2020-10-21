@@ -1,6 +1,13 @@
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+      <button type="button" class="btn btn-secondary">Machines</button>
+    </a>
+</nav>
 <div class="container">
     <h3>Machine Details</h3>
-    <table class="table">
+    <h6 *ngIf = "error?.status === 0" style="color: red;">Error Loding data</h6>
+    <h6 *ngIf = "error?.status === 404" style="color: red;">Can't find machine with the id {{machine.machineId}}</h6>
+    <table *ngIf= "error == null" class="table">
         <tr>
             <td scope="col">Machine</td>
             <td>{{machine.name}}</td>
@@ -15,4 +22,3 @@
         </tr>
     </table>
 </div>
-
