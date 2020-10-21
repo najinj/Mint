@@ -1,0 +1,25 @@
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Production</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="error" >
+                <td scope = "row"> Error while trying to connect to the server ... </td>
+          </tr>
+          <tr *ngIf="!error && machines.length == 0" >
+              <td scope = "row"> No data available </td>
+          </tr>  
+          <tr *ngFor = "let machine of machines">
+            <td><a href="/machine/{{machine.machineId}}">{{machine.machineId}}</a></td>
+            <td>{{machine.name}}</td>
+            <td>{{machine.production}}</td>
+            <th><button (click)="deleteMachine(machine.machineId)">Delete</button></th>
+          </tr>
+        </tbody>
+    </table>
