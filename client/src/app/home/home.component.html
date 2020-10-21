@@ -12,7 +12,7 @@
           <tr *ngIf="error?.status == 0" >
                 <td scope = "row"> Error while trying to connect to the server. </td>
           </tr>
-          <tr *ngIf="!error && !loading && machines.length == 0 || error?.status == 204" >
+          <tr *ngIf="!error && !loading && (machines?.length == 0  || machines == null)" >
               <td scope = "row"> No data available </td>
           </tr>
           <tr *ngIf="loading" >
